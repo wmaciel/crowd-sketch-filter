@@ -1,6 +1,6 @@
 context = document.getElementById('drawingCanvas').getContext("2d");
 
-$('canvas').mousedown(function(e){
+$('#drawingCanvas').mousedown(function(e){
 	var mouseX = e.pageX - this.offsetLeft;
 	var mouseY = e.pageY - this.offsetTop;
 		
@@ -9,18 +9,18 @@ $('canvas').mousedown(function(e){
 	redraw();
 });
 
-$('canvas').mousemove(function(e){
+$('#drawingCanvas').mousemove(function(e){
 	if(paint){
 		addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
 		redraw();
 	}
 });
 
-$('canvas').mouseup(function(e){
+$('#drawingCanvas').mouseup(function(e){
 	paint = false;
 });
 
-$('canvas').mouseleave(function(e){
+$('#drawingCanvas').mouseleave(function(e){
 	paint = false;
 });
 
@@ -38,7 +38,15 @@ var clickSize = new Array();
 var curSize = 10;
 
 var clickTool = new Array();
-var curTool = "brush";
+var curTool = setBrushSize($('#brush-size-range').val());
+
+// -------------------
+
+function setBrushSize(value){
+	console.log(value)
+	curSize = 0.5 + 50.0 * parseFloat(value) / 100.0;
+	console.log(curSize);
+}
 
 // -------------------
 
@@ -96,7 +104,7 @@ function redraw(){
 		context.lineTo(clickX[i], clickY[i]);
 		context.closePath();
 		context.strokeStyle = clickColor[i];
-		context.lineWidth = curSize;
+		context.lineWidth = clickSize[i];
 		context.stroke();
 	}
 }
