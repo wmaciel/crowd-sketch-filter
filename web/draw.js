@@ -127,7 +127,9 @@ function draw(){
 function fitCanvas(){
 	var guideWidth = $("#guide-image").width();
 	var guideHeight = $("#guide-image").height();
-	$("drawingCanvas").width(guideWidth).height(guideHeight);
+	context.canvas.width = guideWidth;
+	context.canvas.height = guideHeight;
+	return [guideWidth, guideHeight];
 }
 
-fitCanvas();
+$(document).ready(function() {fitCanvas()});
