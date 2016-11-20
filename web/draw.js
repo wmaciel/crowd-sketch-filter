@@ -1,4 +1,19 @@
-context = document.getElementById('drawingCanvas').getContext("2d");
+"use strict";
+
+var context = document.getElementById('drawingCanvas').getContext("2d");
+var clickX = new Array();
+var clickY = new Array();
+var clickDrag = new Array();
+var paint;
+
+var curColor = 'black';
+var clickColor = new Array();
+
+var clickSize = new Array();
+var curSize = 10;
+
+var clickTool = new Array();
+var curTool = setBrushSize($('#brush-size-range').val());
 
 $('#drawingCanvas').mousedown(function(e){
 	var mouseX = e.pageX - this.offsetLeft;
@@ -23,22 +38,6 @@ $('#drawingCanvas').mouseup(function(e){
 $('#drawingCanvas').mouseleave(function(e){
 	paint = false;
 });
-
-// -------------------
-
-var clickX = new Array();
-var clickY = new Array();
-var clickDrag = new Array();
-var paint;
-
-var curColor = 'black';
-var clickColor = new Array();
-
-var clickSize = new Array();
-var curSize = 10;
-
-var clickTool = new Array();
-var curTool = setBrushSize($('#brush-size-range').val());
 
 // -------------------
 
