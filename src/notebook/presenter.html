@@ -49,11 +49,11 @@
 <div class="row skeleton">
   
     <div class="col-md-6" id="photo-link">
-	<img id="guide-image" src="http://i.imgur.com/GeHxzb7.png" style="max-width=50%">
+	<img id="guide-image" src="http://i.imgur.com/GeHxzb7.png">
     </div><!-- End of Question and Submission DIV (column) -->
     
     <div class="col-md-6"><!-- Start of Photo DIV (column) -->
-	<canvas id="drawingCanvas" width="512" height="512" style="border-style: solid;border-color: black"></canvas>
+	<canvas id="drawingCanvas" style="border-style: solid;border-color: black"></canvas>
     </div><!-- End of Photo DIV (columnt) -->
 
 </div><!-- End of Skeleton Row -->
@@ -94,20 +94,23 @@ var curSize = 10;
 var curTool = setBrushSize($('#brush-size-range').val());
 
 $('#drawingCanvas').mousedown(function(e){
-    console.log('mousedown');
-	var mouseX = e.pageX - this.offsetLeft;
-	var mouseY = e.pageY - this.offsetTop;
-		
+    var boundingRect = this.getBoundingClientRect();
+    var mouseX = e.pageX - boundingRect.left;
+	var mouseY = e.pageY - boundingRect.top;
+    console.log(mouseX)
+    console.log(e.x)
+    console.log(this.offsetLeft)
 	paint = true;
-	addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-	//redraw();
+	addClick(mouseX, mouseY);
 	draw();
 });
 
 $('#drawingCanvas').mousemove(function(e){
 	if(paint){
-		addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-		//redraw();
+        var boundingRect = this.getBoundingClientRect();
+        var mouseX = e.pageX - boundingRect.left;
+        var mouseY = e.pageY - boundingRect.top;
+		addClick(mouseX, mouseY, true);
 		draw();
 	}
 });
@@ -130,7 +133,6 @@ function clearAll(){
 		clickSize.pop();
 		clickTool.pop();
 	}
-	//redraw();
 	draw();
 }
 
@@ -186,8 +188,6 @@ function addClick(x, y, dragging){
 // -------------------
 
 function draw(){
-    console.log('draw');
-    console.log(clickColor);
 	context.lineJoin = "round";
 	var i = clickX.length - 1
 	context.beginPath();
