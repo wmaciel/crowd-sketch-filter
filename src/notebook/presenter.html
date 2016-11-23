@@ -33,27 +33,25 @@
     task.
 -->
 <div class="row"> <!-- Start tools Row-->
-    <div class="col-md-12 "><!-- Start of Question and Submission DIV (column) -->
-	<div id="tools-div">
-		Color:
-		<input class="jscolor" onchange="colorChange(this.jscolor)" value="000000"><br/>
-		Tool:
-		<button type="button" onclick="setTool('brush')">Brush</button>
-		<button type="button" onclick="setTool('eraser')">Eraser</button>
-		<br/>
-		Brush Size:
-		<input type="range" id="brush-size-range" value="50" onchange="setBrushSize(this.value)">
-	</div>
+    <div class="col-md-12" id="tools-div">
+        Color:
+        <input class="jscolor" onchange="colorChange(this.jscolor)" value="000000"><br/>
+        Tool:
+        <button type="button" onclick="setTool('brush')">Brush</button>
+        <button type="button" onclick="setTool('eraser')">Eraser</button>
+        <br/>
+        Brush Size:
+        <input type="range" id="brush-size-range" value="50" onchange="setBrushSize(this.value)">
     </div>
 </div><!-- end of start tools-->
 <div class="row skeleton">
   
     <div class="col-md-6" id="photo-link">
-	<img id="guide-image" src="http://i.imgur.com/GeHxzb7.png">
+	    <img id="guide-image" src="http://i.imgur.com/GeHxzb7.png">
     </div><!-- End of Question and Submission DIV (column) -->
     
     <div class="col-md-6"><!-- Start of Photo DIV (column) -->
-	<canvas id="drawingCanvas" style="border-style: solid;border-color: black"></canvas>
+	    <canvas id="drawingCanvas" style="border-style: solid;border-color: black"></canvas>
     </div><!-- End of Photo DIV (columnt) -->
 
 </div><!-- End of Skeleton Row -->
@@ -216,7 +214,7 @@ function fitCanvas(){
 $(document).ready(function() {fitCanvas()});
 
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<noscript>Please enable JavaScript to view the page properly</noscript>
 
 <script>
 function loadUserProgress() { 
@@ -241,9 +239,11 @@ pybossa.taskLoaded(function(task, deferred) {
             // continue as soon as the image is loaded
             deferred.resolve(task);
         });
+        console.log(task.info.url_m)
         img.attr('src', task.info.url_m);//.css('height', 460);
         img.addClass('img-thumbnail img-responsive');
         task.info.image = img;
+        fitCanvas();
     }
     else {
         deferred.resolve(task);
