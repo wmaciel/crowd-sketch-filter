@@ -243,7 +243,7 @@ pybossa.taskLoaded(function(task, deferred) {
         img.attr('src', task.info.url_m);//.css('height', 460);
         img.addClass('img-thumbnail img-responsive');
         task.info.image = img;
-        fitCanvas();
+        console.log(img)
     }
     else {
         deferred.resolve(task);
@@ -256,8 +256,6 @@ pybossa.presentTask(function(task, deferred) {
     if ( !$.isEmptyObject(task) ) {
         loadUserProgress();
         $('#photo-link').html('').append(task.info.image);
-        $("#photo-link").attr("href", task.info.link);
-        //$("#question").html(task.info.question);
         $('#task-id').html(task.id);
         $('.btn-answer').off('click').on('click', function(evt) {
             var answer = $(this).attr("value");
@@ -277,6 +275,7 @@ pybossa.presentTask(function(task, deferred) {
             }
         });
         $("#loading").hide();
+        fitCanvas();
     }
     else {
         $(".skeleton").hide();
