@@ -32,27 +32,34 @@
     It uses the class="skeleton" to identify the elements that belong to the
     task.
 -->
-<div class="row"> <!-- Start tools Row-->
-    <div class="col-md-12" id="tools-div">
-        Color:
-        <input class="jscolor" onchange="colorChange(this.jscolor)" value="000000"><br/>
-        Tool:
-        <button type="button" onclick="setTool('brush')">Brush</button>
-        <button type="button" onclick="setTool('eraser')">Eraser</button>
+<div class="row skeleton" style="background-color: #435861; color: #FFFFFF;"> <!-- Start Tools Row-->
+    <div class="col-sm-4 text-center">
         <br/>
-        Brush Size:
-        <input type="range" id="brush-size-range" value="50" onchange="setBrushSize(this.value)">
+        Color:<br/>
+        <input class="jscolor" onchange="colorChange(this.jscolor)" value="000000"><br/>
     </div>
-</div><!-- end of start tools-->
+    <div class="col-sm-4 text-center">
+        <br/>
+        Tool:<br/>
+        <button type="button" onclick="setTool('brush')">Brush</button>
+        <button type="button" onclick="setTool('eraser')">Clear</button><br/>
+    </div>
+    <div class="col-sm-4 text-center">
+        <br/>
+        Brush Size:<br/>
+        <input type="range" id="brush-size-range" value="50" onchange="setBrushSize(this.value)"><br/>
+    </div>
+</div><!-- End of Tools Row-->
+
 <div class="row skeleton">
-  
-    <div class="col-md-6" id="photo-link">
-	    <img id="guide-image" src="http://i.imgur.com/GeHxzb7.png">
-    </div><!-- End of Question and Submission DIV (column) -->
+    <br/>
+    <div class="col-xs-6 text-right" id="photo-link">
+	        <img id="guide-image" src="http://i.imgur.com/GeHxzb7.png" style="border-style: solid;border-color: black">
+    </div>
     
-    <div class="col-md-6"><!-- Start of Photo DIV (column) -->
+    <div class="col-xs-6 text-left">
 	    <canvas id="drawingCanvas" style="border-style: solid;border-color: black"></canvas>
-    </div><!-- End of Photo DIV (columnt) -->
+    </div>
 
 </div><!-- End of Skeleton Row -->
 
