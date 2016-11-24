@@ -106,9 +106,6 @@ $('#drawingCanvas').mousedown(function(e){
     var boundingRect = this.getBoundingClientRect();
     var mouseX = e.pageX - boundingRect.left;
 	var mouseY = e.pageY - boundingRect.top;
-    console.log(mouseX)
-    console.log(e.x)
-    console.log(this.offsetLeft)
 	paint = true;
 	addClick(mouseX, mouseY);
 	draw();
@@ -148,9 +145,7 @@ function clearAll(){
 // -------------------
 
 function setBrushSize(value){
-	console.log(value)
 	curSize = 0.5 + 50.0 * parseFloat(value) / 100.0;
-	console.log(curSize);
 }
 
 // -------------------
@@ -159,7 +154,6 @@ function setTool(toolName){
 	curTool = toolName;
 	switch(toolName){
 		case 'brush':
-			console.log('switching to brush tool');
 			break;
 		case 'eraser':
 			clearAll();
@@ -240,20 +234,16 @@ function loadUserProgress() {
 }
 
 pybossa.taskLoaded(function(task, deferred) {
-    console.log('inside taskLoaded');
-    console.log(JSON.stringify(task));
     if ( !$.isEmptyObject(task) ) {
         // load image from flickr
-        var img = $('<img id="guide-image"/>');
+        var img = $('<img id="guide-image" style="border: initial;border-style: solid;border-color: black"/>');
 	img.load(function() {
             // continue as soon as the image is loaded
             deferred.resolve(task);
         });
         console.log(task.info.url_m)
-        img.attr('src', task.info.url_m);//.css('height', 460);
-        img.addClass('img-thumbnail img-responsive');
+        img.attr('src', task.info.url_m);
         task.info.image = img;
-        console.log(img)
     }
     else {
         deferred.resolve(task);
@@ -261,8 +251,6 @@ pybossa.taskLoaded(function(task, deferred) {
 });
 
 pybossa.presentTask(function(task, deferred) {
-    console.log('inside presentTask');
-    console.log(JSON.stringify(task));
     if ( !$.isEmptyObject(task) ) {
         loadUserProgress();
         $('#photo-link').html('').append(task.info.image);
