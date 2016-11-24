@@ -67,6 +67,12 @@
 
 </div><!-- End of Skeleton Row -->
 
+<div class="row skeleton" style="background-color: #435861;">
+    <div class="col-xs-12 text-right">
+        <button class="btn btn-answer" type="button" style="margin:5px;">Submit</button>
+    </div>
+</div>
+
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 
@@ -256,17 +262,13 @@ pybossa.presentTask(function(task, deferred) {
         $('#photo-link').html('').append(task.info.image);
         $('#task-id').html(task.id);
         $('.btn-answer').off('click').on('click', function(evt) {
-            var answer = $(this).attr("value");
+            var answer = $('#drawingCanvas')[0].toDataURL('image/jpeg', 1);
             if (typeof answer != 'undefined') {
-                //console.log(answer);
+                console.log(answer);
                 pybossa.saveTask(task.id, answer).done(function() {
                     deferred.resolve();
                 });
                 $("#loading").fadeIn(500);
-                if ($("#disqus_thread").is(":visible")) {
-                    $('#disqus_thread').toggle();
-                    $('.btn-disqus').toggle();
-                }
             }
             else {
                 $("#error").show();
