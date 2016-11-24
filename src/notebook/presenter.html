@@ -145,6 +145,11 @@ $('#drawingCanvas').mouseleave(function(e){
 
 function clearAll(){
 	context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+
+    // paint it white
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+
 	while(clickX.length){
 		clickX.pop();
 		clickY.pop();
@@ -237,7 +242,7 @@ $(document).ready(function() {fitCanvas()});
 
 <script>
 function loadUserProgress() { 
-    pybossa.userProgress('test').done(function(data){
+    pybossa.userProgress('csf').done(function(data){
         var pct = Math.round((data.done*100)/data.total);
         $("#progress").css("width", pct.toString() +"%");
         $("#progress").attr("title", pct.toString() + "% completed!");
@@ -284,6 +289,7 @@ pybossa.presentTask(function(task, deferred) {
         });
         $("#loading").hide();
         fitCanvas();
+        clearAll();
     }
     else {
         $(".skeleton").hide();
@@ -292,5 +298,5 @@ pybossa.presentTask(function(task, deferred) {
     }
 });
 
-pybossa.run('test');
+pybossa.run('csf');
 </script>
