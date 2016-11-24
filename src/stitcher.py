@@ -21,5 +21,20 @@ def stitch_images(original_path, folder_path, out_path):
     original.save(out_path)
 
 
+def stitch_images_from_object(original_path, object_list, out_dir):
+    originals = []
+    for i in range(len(object_list[0]['img'])):
+        originals.append(Image.open(original_path))
+
+    for o in object_list:
+        file_name = o['file']
+        for i, img in enumerate(o['img']):
+           box = tuple(map(int, file_name.split('_')))
+           originals[i].paste(img, box)
+    
+    for i, o in enumerate(originals):
+        o.save(os.path.join(out_dir, str(i)+'.jpeg'))
+
+
 if __name__ == '__main__':
     stitch_images('lena.bmp', 'lena_divs', 'lena_stitched.bmp')
