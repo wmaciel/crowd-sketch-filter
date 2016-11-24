@@ -66,7 +66,7 @@
 <div class="row skeleton">
     <br/>
     <div class="col-xs-6 text-right" id="photo-link">
-	        <img id="guide-image" src="http://i.imgur.com/GeHxzb7.png" style="border-style: solid;border-color: black">
+	        <img id="guide-image" src="http://i.imgur.com/GeHxzb7.png" style="height: auto;width: auto;border-style: solid;border-color: black">
     </div>
     
     <div class="col-xs-6 text-left">
@@ -256,11 +256,16 @@ pybossa.taskLoaded(function(task, deferred) {
     if ( !$.isEmptyObject(task) ) {
         // load image from flickr
         var img = $('<img id="guide-image" style="border: initial;border-style: solid;border-color: black"/>');
-	img.load(function() {
+	    img.load(function() {
             // continue as soon as the image is loaded
             deferred.resolve(task);
+            if (this.width >= this.height) {
+                this.style['minWidth'] = '256px';
+            } else {
+                this.style['minHeight'] = '256px';
+            }
+            fitCanvas()
         });
-        console.log(task.info.url_m)
         img.attr('src', task.info.url_m);
         task.info.image = img;
     }
