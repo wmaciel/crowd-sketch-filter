@@ -55,4 +55,4 @@ def split_image(file_path, n_x, n_y, out_folder):
 
 
 if __name__ == '__main__':
-    split_image(sys.argv[1], 5, 5, sys.argv[2])
+    split_image(sys.argv[1], 10, 10, sys.argv[2])

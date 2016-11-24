@@ -30,6 +30,7 @@ def stitch_images_from_object(original_path, object_list, out_dir):
         file_name = o['file']
         for i, img in enumerate(o['img']):
            box = tuple(map(int, file_name.split('_')))
+           img = img.resize((box[2] - box[0], box[3] - box[1]), Image.LANCZOS)
            originals[i].paste(img, box)
     
     for i, o in enumerate(originals):
