@@ -118,8 +118,8 @@ var curTool = setBrushSize($('#brush-size-range').val());
 
 $('#drawingCanvas').mousedown(function(e){
     var boundingRect = this.getBoundingClientRect();
-    var mouseX = e.pageX - boundingRect.left;
-	var mouseY = e.pageY - boundingRect.top;
+    var mouseX = e.clientX - boundingRect.left;
+	var mouseY = e.clientY - boundingRect.top;
 	paint = true;
 	addClick(mouseX, mouseY);
 	draw();
@@ -128,8 +128,8 @@ $('#drawingCanvas').mousedown(function(e){
 $('#drawingCanvas').mousemove(function(e){
 	if(paint){
         var boundingRect = this.getBoundingClientRect();
-        var mouseX = e.pageX - boundingRect.left;
-        var mouseY = e.pageY - boundingRect.top;
+        var mouseX = e.clientX - boundingRect.left;
+        var mouseY = e.clientY - boundingRect.top;
 		addClick(mouseX, mouseY, true);
 		draw();
 	}
