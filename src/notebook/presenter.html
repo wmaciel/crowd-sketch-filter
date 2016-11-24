@@ -32,6 +32,14 @@
     It uses the class="skeleton" to identify the elements that belong to the
     task.
 -->
+<div class="row skeleton">
+    <p><span id="i18n_tasks_completed">You have completed:</span> <span id="done" class="label label-info"></span> <span id="i18n_tasks_from">tasks from</span>
+        <!-- Progress bar for the user -->
+    <span id="total" class="label label-info"></span></p>
+    <div class="progress progress-striped">
+        <div id="progress" rel="tooltip" title="#" class="progress-bar" style="width: 0%;"  role="progressbar"></div>
+    </div>
+</div>
 <div class="row skeleton" style="background-color: #435861; color: #FFFFFF;"> <!-- Start Tools Row-->
     <div class="col-sm-4 text-center">
         <br/>
