@@ -1,5 +1,6 @@
 import sys
 import os
+import shutil
 from PIL import Image
 
 
@@ -33,25 +34,33 @@ def split_image(file_path, n_x, n_y, out_folder):
     '''
     Splits the image from file_path into n_x * n_y pieces and saves them inside out_folder
     '''
-    os.mkdir(out_folder)
-    original = Image.open(file_path)
+    # Overwrites out_folder if it already exists!
+    if os.path.isdir(out_folder):
+        shutil.rmtree(out_folder) 
+    os.makedirs(out_folder)
+    
+    img_path_list = []
 
-    original_width, original_height = original.size
-    boxes_x = generate_1d_box_limits(original_width, n_x)
-    boxes_y = generate_1d_box_limits(original_height, n_y)
+    with  Image.open(file_path) as original:
+        original_width, original_height = original.size
+        boxes_x = generate_1d_box_limits(original_width, n_x)
+        boxes_y = generate_1d_box_limits(original_height, n_y)
 
-    # Merge 1d boxes into 2d boxes
-    boxes = []
-    for box_y in boxes_y:
-        for box_x in boxes_x:
-            box = (box_x[0], box_y[0], box_x[1], box_y[1])
-            boxes.append(box)
+        # Merge 1d boxes into 2d boxes
+        boxes = []
+        for box_y in boxes_y:
+            for box_x in boxes_x:
+                box = (box_x[0], box_y[0], box_x[1], box_y[1])
+                boxes.append(box)
 
-    for box in boxes:
-        region = original.crop(box)
-        filename = str(box[0]) + '_' + str(box[1]) + '_' + str(box[2]) + '_' + str(box[3]) + '.bmp'
-        out_path = os.path.join(out_folder, filename)
-        region.save(out_path)
+        for box in boxes:
+            region = original.crop(box)
+            filename = str(box[0]) + '_' + str(box[1]) + '_' + str(box[2]) + '_' + str(box[3]) + '.bmp'
+            out_path = os.path.join(out_folder, filename)
+            region.save(out_path)
+            img_path_list.append(out_path)
+    
+    return img_path_list
 
 
 if __name__ == '__main__':
