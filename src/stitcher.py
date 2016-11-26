@@ -23,6 +23,10 @@ def stitch_images(original_path, folder_path, out_path):
 
 def stitch_images_from_object(original_path, object_list, out_dir):
     originals = []
+
+    if not os.path.isdir(out_dir)
+        os.makedirs(out_dir)
+
     for i in range(len(object_list[0]['img'])):
         originals.append(Image.open(original_path))
 
