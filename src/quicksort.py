@@ -17,9 +17,9 @@ def _quicksort(crowddata, object_list, orig_img):
     right = []
     for obj, result in zip(crowddata.data['object'], crowddata.data['mv']):
         if result == 'right':
-            left.append(obj[0])
+            left.append(obj[1])
         else:
-            right.append(obj[0])
+            right.append(obj[1])
 
     crowddata = _quicksort(crowddata, left, orig_img)
     crowddata = _quicksort(crowddata, right, orig_img)
