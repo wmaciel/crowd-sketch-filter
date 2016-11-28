@@ -21,8 +21,8 @@ def _quicksort(crowddata, object_list, orig_img):
         else:
             right.append(obj[0])
 
-    crowddata = _quicksort(crowddata, left)
-    crowddata = _quicksort(crowddata, right)
+    crowddata = _quicksort(crowddata, left, orig_img)
+    crowddata = _quicksort(crowddata, right, orig_img)
     object_list[:] = left+[pivot]+right
 
     return crowddata
