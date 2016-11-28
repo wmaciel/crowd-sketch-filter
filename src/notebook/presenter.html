@@ -50,8 +50,8 @@
         <br/>
         Tool:<br/>
         <div class="btn-group">
-            <button class="btn btn-primary" type="button" onclick="setTool('brush')">Brush</button>
-            <button class="btn btn-primary" type="button" onclick="setTool('eraser')">Clear</button>
+            <button class="btn btn-primary" type="button" onclick="clearAll()">Clear</button>
+            <button class="btn btn-primary" type="button" onclick="undo()">Undo</button>
         </div>
         <br/>
 
@@ -114,7 +114,8 @@ var clickTool = new Array();
 
 var curColor = 'black';
 var curSize = 10;
-var curTool = setBrushSize($('#brush-size-range').val());
+
+setBrushSize($('#brush-size-range').val());
 
 $('#drawingCanvas').mousedown(function(e){
     var boundingRect = this.getBoundingClientRect();
@@ -169,22 +170,13 @@ function setBrushSize(value){
 
 // -------------------
 
-function setTool(toolName){
-	curTool = toolName;
-	switch(toolName){
-		case 'brush':
-			break;
-		case 'eraser':
-			clearAll();
-			setTool('brush');
-			break;
-		case 'bucket':
-			break;
-		case 'eyeDropper':
-			break;
-		default:
-			break;
-	}
+function undo(){
+    clickX.pop();
+    clickY.pop();
+    clickDrag.pop();
+    clickColor.pop();
+    clickSize.pop();
+    redraw();
 }
 
 // -------------------
@@ -199,19 +191,29 @@ function addClick(x, y, dragging){
 	clickX.push(x);
 	clickY.push(y);
 	clickDrag.push(dragging);
-	if(curTool == "eraser"){
-		clickColor.push("white");
-	}else{
-		clickColor.push(curColor);
-	}
+    clickColor.push(curColor);
 	clickSize.push(curSize);
 }
 
 // -------------------
 
-function draw(){
-	context.lineJoin = "round";
-	var i = clickX.length - 1
+function redraw(){
+    // clear canvas
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+    // paint it white
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+    
+    // redraw the whole history
+    for(i = 0; i < clickX.length; ++i){
+        drawHistory(i);
+    }
+}
+
+// -------------------
+
+function drawHistory(i){
+    context.lineJoin = "round";
 	context.beginPath();
 	
 	if(clickDrag[i] && i){
@@ -225,6 +227,12 @@ function draw(){
 	context.strokeStyle = clickColor[i];
 	context.lineWidth = clickSize[i];
 	context.stroke();
+}
+
+// -------------------
+
+function draw(){
+	drawHistory(clickX.length - 1);
 }
 
 function fitCanvas(){
@@ -253,6 +261,7 @@ function loadUserProgress() {
 }
 
 pybossa.taskLoaded(function(task, deferred) {
+    console.log('Task Loaded started');
     if ( !$.isEmptyObject(task) ) {
         // load image from flickr
         var img = $('<img id="guide-image" style="border: initial;border-style: solid;border-color: black"/>');
@@ -272,9 +281,11 @@ pybossa.taskLoaded(function(task, deferred) {
     else {
         deferred.resolve(task);
     }
+    console.log('Task Loaded finished');
 });
 
 pybossa.presentTask(function(task, deferred) {
+    console.log('Present Task started');
     if ( !$.isEmptyObject(task) ) {
         loadUserProgress();
         $('#photo-link').html('').append(task.info.image);
@@ -301,6 +312,7 @@ pybossa.presentTask(function(task, deferred) {
         $("#loading").hide();
         $("#finish").fadeIn(500);
     }
+    console.log('Present Task finished');
 });
 
 pybossa.run('csf');
