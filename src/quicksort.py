@@ -27,7 +27,7 @@ def _quicksort(crowddata, object_list, orig_img):
 
     return crowddata
 
-/* customized for using an original with comparisons for quicksort list */
+# customized for using an original with comparisons for quicksort list 
 def quicksort(object_list, table_name, custom_presenter, custom_map_func, orig_img, seed, cc):
     random.seed(seed)  # This is to gaurantee that quicksort is determinintic.
     crowddata = cc.CrowdData([], table_name = table_name) \
