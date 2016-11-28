@@ -2,7 +2,7 @@ import random
 from reprowd.crowdcontext import *
 from reprowd.presenter.image import ImageCmp
 
-/* credit to https://github.com/sfu-db/reprowd/blob/master/reprowd/examples/quicksort.py */
+# credit to https://github.com/sfu-db/reprowd/blob/master/reprowd/examples/quicksort.py
 def _quicksort(crowddata, object_list, orig_img):
     if len(object_list) <= 1:
         return crowddata
