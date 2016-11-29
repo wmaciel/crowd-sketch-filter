@@ -46,7 +46,7 @@
         Color:<br/>
         <input class="jscolor" onchange="colorChange(this.jscolor)" value="000000"><br/>
     </div>
-    <div class="col-sm-4 text-center">
+    <div class="col-sm-3 text-center">
         <br/>
         Tool:<br/>
         <div class="btn-group">
@@ -54,7 +54,11 @@
             <button class="btn btn-primary" type="button" onclick="undo()">Undo</button>
         </div>
         <br/>
-
+    </div>
+    <div class="col-sm-1 text-center" style="min-height:100px">
+        <br/>
+        Brush:<br/>
+        <span id="brushSize" style="background:#000;border-radius:50%;display:inline-block;">&nbsp</span>
     </div>
     <div class="col-sm-4 text-center">
         <br/>
@@ -63,13 +67,13 @@
     </div>
 </div><!-- End of Tools Row-->
 
-<div class="row skeleton">
+<div class="row skeleton" style="text-align:center;">
     <br/>
-    <div class="col-xs-6 text-right" id="photo-link">
+    <div class="col-lg-6 text-center" id="photo-link">
 	        <img id="guide-image" src="http://i.imgur.com/GeHxzb7.png" style="height: auto;width: auto;border-style: solid;border-color: black">
     </div>
     
-    <div class="col-xs-6 text-left">
+    <div class="col-lg-6 text-center">
 	    <canvas id="drawingCanvas" style="border-style: solid;border-color: black"></canvas>
     </div>
 
@@ -83,7 +87,6 @@
 
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-
     /* * * DON'T EDIT BELOW THIS LINE * * */
     /* loading in the libraries */
     (function() {
@@ -103,6 +106,7 @@
 
 var context = document.getElementById('drawingCanvas').getContext("2d");
 var paint;
+var brushSize = document.getElementById('brushSize')
 
 // history arrays
 var clickX = new Array();
@@ -166,6 +170,9 @@ function clearAll(){
 
 function setBrushSize(value){
 	curSize = 0.5 + 50.0 * parseFloat(value) / 100.0;
+    visibleBrushSize = 1 + curSize
+    brushSize.style.width = visibleBrushSize + 'px';
+    brushSize.style.height = visibleBrushSize + 'px';
 }
 
 // -------------------
@@ -183,6 +190,7 @@ function undo(){
 
 function colorChange(jscolor){
 	curColor = '#' + jscolor;
+    brushSize.style.background = curColor;
 }
 
 // -------------------
