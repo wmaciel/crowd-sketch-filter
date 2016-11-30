@@ -100,9 +100,9 @@ pybossa.taskLoaded(function(task, deferred) {
     console.log('Task Loaded started');
     if ( !$.isEmptyObject(task) ) {
         // Load 3 Images
-        var dOriginal = Deferred();
-        var dLeft = Deferred();
-        var dRight = Deferred();
+        var dOriginal = jQuery.Deferred();
+        var dLeft = jQuery.Deferred();
+        var dRight = jQuery.Deferred();
         $.when(dOriginal, dLeft, dRight).done(function(){deferred.resolve(task)});
 
         var originalImg = $('<img id="original-img" />');
