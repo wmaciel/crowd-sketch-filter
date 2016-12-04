@@ -106,17 +106,17 @@ pybossa.taskLoaded(function(task, deferred) {
         var dRight = jQuery.Deferred();
         $.when(dOriginal, dLeft, dRight).done(function(){deferred.resolve(task)});
 
-        var originalImg = $('<img id="original-img" />');
+        var originalImg = $('<img id="original-img" style="min-width: 256px" />');
 	    originalImg.load(function() {
             dOriginal.resolve();
         });
 
-        var leftImg = $('<img id="left-img" />');
+        var leftImg = $('<img id="left-img" style="min-width: 256px"/>');
         leftImg.load(function(){
             dLeft.resolve();
         });
 
-        var rightImg = $('<img id="right-img" />');
+        var rightImg = $('<img id="right-img" style="min-width: 256px"/>');
         rightImg.load(function(){
             dRight.resolve();
         });
